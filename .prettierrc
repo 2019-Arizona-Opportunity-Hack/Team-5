@@ -1,0 +1,13 @@
+{
+    "extends": ["plugin:prettier/recommended"],
+    "arrowParens": "avoid",
+    "jsxBracketSameLine": false,
+    "jsxSingleQuote": false,
+    "trailingComma": "es5",
+    "tabWidth": 4,
+    "quoteProps": "as-needed",
+    "semi": true,
+    "singleQuote": false,
+    "useTabs": false,
+    "printWidth": 100
+}
