@@ -1,7 +1,149 @@
-type User {
-    name: String
+type Query {
+    user(id: ID): User
+    event(id: ID): Event
+    findUsers(user: User): [User]
+    findEvents(event: Event): [Event]
 }
 
-type Query {
-    user: User
+type Mutation {
+    updateUser(id: ID, changes: User): Boolean
+    updateEvent(id: ID, changes: Event): Boolean
+    deleteUser(userId: ID): Boolean
+    deleteEvent(eventId: ID): Boolean
+    addUserToEvent(userId: ID, eventId: ID): Boolean
+}
+
+scalar Date
+scalar Time
+
+type User {
+    id: ID
+    firstName: String
+    lastName: String
+    dateOfBirth: Time
+    address: String
+    zipCode: String
+    city: String
+    phoneNumber: String
+    emailAddress: String
+    eventsAttended: [Event]
+    household: [User]
+    isHeadOfHousehold: Boolean
+    gender: Gender
+    housingType: Housing
+    ethnicity: Ethnicity
+    selfIdentification: [Identification]
+    highestEducationCompleted: HighestEducation
+    primaryLanguage: Language
+    employmentType: Employment
+    hasDentalInsurance: Boolean
+    hasPrimaryDoctor: Boolean
+    monthlyIncome: Double
+    monthlyIncomeType: MonthlyIncome
+    medicalInsuranceType: MedicalInsurance
+    childCareType: ChildCare
+}
+
+type Event {
+    id: ID
+    name: String
+    usersAttended: [User]
+    time: Time
+    date: Date
+}
+
+enum Gender {
+    Male
+    Female
+    Other
+}
+
+enum Housing {
+    Emergency
+    Evacuee
+    HomeOwner
+    Other
+}
+
+enum Identification {
+    Disability
+    Veteran
+    MentalIllness
+    Pregnant
+    Postpartum
+    Breastfeeding
+    Undisclosed
+    Ederly
+    LGBTQ
+    Other
+}
+
+enum Ethnicity {
+    White
+    AfricanAmerican
+    HispanicLatino
+    AmericanIndianNativeAmerican
+    Asian
+    AlaskaNativeAleutEskimo
+    MiddleEasternNorthAfrican
+    PacificIslander
+    Undisclosed
+    Other
+}
+
+enum HighestEducation {
+    ElementaryMiddleSchool
+    HighSchool
+    HighSchoolGraduate
+    GenderPostSecondary
+    Tradeschool
+    AssociatesDegree
+    BachelorsDegree
+    PHD
+    Undisclosed
+}
+
+enum Language {
+    English
+    Spanish
+    Other
+}
+
+enum Employment {
+    PostSecondaryStudent
+    FullTime
+    PartTime
+    REtried
+    None
+    Undisclosed
+    Other
+}
+
+enum MonthlyIncome {
+    Amount
+    CommoditySupplementalFoodProgram
+    SupplementalAssistanceWIC
+    SupplementalNutritionAssistanceProgramSNAP
+    CashAssistantTANF
+    DESChildCareSubsidy
+    QualityFirstScholarship
+    Other
+}
+
+enum MedicalInsurance {
+    Employer
+    Private
+    AHCCCS
+    IndianHealthServices
+    Military
+    None
+    Other
+}
+
+enum ChildCare {
+    AtHome
+    HeadStart
+    ChildCareCenterPreschoolProgram
+    FamilyChildCareHome
+    RelativeNeighborOrBabysitter
 }
