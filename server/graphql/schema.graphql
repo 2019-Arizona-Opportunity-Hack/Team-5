@@ -1,13 +1,13 @@
 type Query {
     user(id: ID): User
     event(id: ID): Event
-    findUsers(user: User): [User]
-    findEvents(event: Event): [Event]
+    # findUsers(user: User): [User]
+    # findEvents(event: Event): [Event]
 }
 
 type Mutation {
-    updateUser(id: ID, changes: User): Boolean
-    updateEvent(id: ID, changes: Event): Boolean
+    # updateUser(id: ID, changes: User): Boolean
+    # updateEvent(id: ID, changes: Event): Boolean
     deleteUser(userId: ID): Boolean
     deleteEvent(eventId: ID): Boolean
     addUserToEvent(userId: ID, eventId: ID): Boolean
@@ -38,7 +38,7 @@ type User {
     employmentType: Employment
     hasDentalInsurance: Boolean
     hasPrimaryDoctor: Boolean
-    monthlyIncome: Double
+    monthlyIncome: Float
     monthlyIncomeType: MonthlyIncome
     medicalInsuranceType: MedicalInsurance
     childCareType: ChildCare
