@@ -1,5 +1,7 @@
+const React = require("react");
 const firebase = require("firebase");
 const firebaseui = require("firebaseui");
+
 const firebaseConfig = {
     apiKey: "AIzaSyB5LyyY05yJI7NYVfjlVvdYIMd0rZ-HCrs",
     authDomain: "careconnect-eefc3.firebaseapp.com",
@@ -11,12 +13,5 @@ const firebaseConfig = {
     measurementId: "G-8LN4MSC1JW",
 };
 
-{
-    /* // Your web app's Firebase configuration */
-}
-
-{
-    /* // Initialize Firebase */
-}
 firebase.initializeApp(firebaseConfig);
 firebase.analytics();
