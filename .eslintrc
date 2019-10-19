@@ -1,5 +1,4 @@
 {
-    "extends": ["eslint:recommended"],
     "env": {
         "node": true,
         "es6": true,
@@ -267,5 +266,5 @@
         "react/jsx-indent": ["off", 4],
         "max-len": "off"
     },
-    "plugins": ["prettier", "react"]
+    "plugins": ["prettier", "react", "jsx"]
 }
