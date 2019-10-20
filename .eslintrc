@@ -55,7 +55,7 @@
         "consistent-return": "off",
         "curly": "warn",
         "default-case": "warn",
-        "dot-location": "warn",
+        "dot-location": "off",
         "dot-notation": "warn",
         "eqeqeq": "warn",
         "guard-for-in": "off",

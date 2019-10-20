@@ -1,24 +1,49 @@
 const { model, Schema } = require("mongoose");
+const wrapCallbackToPromise = require("../utils/wrapCallbackToPromise");
 
 const schema = new Schema({
-    name: String,
+    firstName: String,
+    lastName: String,
+    dateOfBirth: Date,
+    address: String,
+    zipCode: Number,
+    city: String,
+    phoneNumber: String,
+    emailAddress: String,
+    isHeadOfHousehold: Boolean,
+    gender: String,
+    houstingType: String,
+    ethnicity: String,
+    selfIdentification: [String],
+    highestEducationCompleted: String,
+    primaryLanguage: [String],
+    employmentType: String,
+    hasDentalInsurance: Boolean,
+    hasPrimaryDoctor: Boolean,
+    monthIncome: Number,
+    monthlyIncomeType: [String],
+    medicalInsuranceType: String,
+    childCareType: String,
+    houseHold: [Schema.Types.ObjectId],
+    eventsAddtended: [Schema.Types.ObjectId],
 });
 
 const userModel = model("User", schema);
 
-function init() {
-    userModel.createCollection();
-}
+const User = {
+    init() {
+        userModel.createCollection();
+    },
 
-function findById(id) {
-    // TODO: Implement finding a user by an id
-}
+    create(user) {
+        const createUser = userModel.create.bind(userModel);
+        return wrapCallbackToPromise(createUser, user);
+    },
 
-function createUser(userData) {
-    // TODO: Implement creating new users from given user Data
-}
-
-module.exports = {
-    init,
-    findById,
+    find(id) {
+        const findById = userModel.findById.bind(userModel);
+        return wrapCallbackToPromise(findById, id);
+    },
 };
+
+module.exports = User;
