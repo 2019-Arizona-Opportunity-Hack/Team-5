@@ -1,5 +1,8 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { withFirebase } from "./Firebase";
+import { withAuthentication } from "./Session";
+// import "./App.css";
 
 // Page components
 import HomePage from "./screens/HomePage";
