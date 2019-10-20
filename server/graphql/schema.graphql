@@ -9,18 +9,18 @@ type Mutation {
     newUser(user: UserInput!, household: [UserInput]): Success
     newEvent(event: EventInput!): Success
     addUserToEvent(userId: ID!, eventId: ID!): Success
-    # updateUser(id: ID, changes: User): Boolean
-    # updateEvent(id: ID, changes: Event): Boolean
-    # deleteUser(userId: ID): Boolean
-    # deleteEvent(eventId: ID): Boolean
-    # addUserToEvent(userId: ID, eventId: ID): Boolean
+    updateUser(userId: ID!, changes: UserInput): Success
+    updateEvent(eventId: ID!, changes: EventInput!): Success
+    deleteUser(userId: ID!): Success
+    deleteEvent(eventId: ID): Success
+    # addUserToEvent(userId: ID, eventId: ID): Success
 }
 
 scalar Date
 
 type User {
     id: ID!
-    firstName: String!
+    firstName: String
     lastName: String
     dateOfBirth: Date
     address: String
@@ -47,8 +47,8 @@ type User {
 }
 
 input UserInput {
-    firstName: String!
-    lastName: String!
+    firstName: String
+    lastName: String
     dateOfBirth: Date
     address: String
     zipCode: Int

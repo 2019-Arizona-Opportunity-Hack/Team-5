@@ -80,6 +80,14 @@ const User = {
             .exec();
     },
 
+    change(id, changes) {
+        return userModel.findByIdAndUpdate(id, changes).exec();
+    },
+
+    delete(id) {
+        return userModel.findByIdAndDelete(id).exec();
+    },
+
     _addEventToUser(eventId, userId) {
         return userModel.findByIdAndUpdate(userId, {
             $push: {

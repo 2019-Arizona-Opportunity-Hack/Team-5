@@ -36,6 +36,14 @@ const Event = {
             .exec();
     },
 
+    change(id, changes) {
+        return eventModel.findByIdAndUpdate(id, changes).exec();
+    },
+
+    delete(id) {
+        return eventModel.findByIdAndDelete(id).exec();
+    },
+
     addUserToEvent(eventId, userId) {
         return eventModel
             .find({
