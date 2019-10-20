@@ -1,31 +1,70 @@
-// import { renderPlaygroundPage } from "@apollographql/graphql-playground-html/dist/render-playground-page";
-import React from "react";
-import firebaseConfig from "./firebase.js";
-import firebase from "firebase";
-import "firebaseui/dist/firebaseui.css";
-import * as firebaseui from "firebaseui";
+import React, { Component } from "react";
+import { withRouter } from "react-router-dom";
+import { compose } from "recompose";
+import { withFirebase } from "../Firebase/context";
 
-export default async function Signin() {
-    firebase.initializeApp(firebaseConfig);
-    let ui = new firebaseui.auth.AuthUI(firebase.auth());
-    let uiConfig = {
-        signInSuccessUrl: "homepage",
-        signInOptions: [
-            firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-            firebase.auth.EmailAuthProvider.PROVIDER_ID,
-        ],
-        // tosUrl and privacyPolicyUrl accept either url string or a callback
-        // function.
-        // Terms of service url/callback.
-        tosUrl: "<your-tos-url>",
-        // Privacy policy url/callback.
-        privacyPolicyUrl: function() {
-            window.location.assign("<your-privacy-policy-url>");
-        },
+const SignInPage = () => 
+    <div>
+        <h1>SignIn</h1>
+        <SignInForm />
+    </div>
+;
+const INITIAL_STATE = {
+    email: "",
+    password: "",
+    error: null,
+};
+class SignInFormBase extends Component {
+    constructor(props) {
+        super(props);
+        this.state = { ...INITIAL_STATE };
+    }
+    onSubmit = event => {
+        const { email, password } = this.state;
+        this.props.firebase
+            .doSignInWithEmailAndPassword(email, password)
+            .then(() => {
+                this.setState({ ...INITIAL_STATE });
+                this.props.history.push("/homepage");
+            })
+            .catch(error => {
+                this.setState({ error });
+            });
+        event.preventDefault();
     };
-    ui.start("#firebaseui-auth-container", uiConfig);
-    console.log("fire started");
-    let user = await firebase.auth().currentUser.uid;
-    console.log(user);
-    return <div id="firebaseui-auth-container"></div>;
+    onChange = event => {
+        this.setState({ [event.target.name]: event.target.value });
+    };
+    render() {
+        const { email, password, error } = this.state;
+        const isInvalid = password === "" || email === "";
+        return (
+            <form onSubmit={this.onSubmit}>
+                <input
+                    name="email"
+                    value={email}
+                    onChange={this.onChange}
+                    type="text"
+                    placeholder="Email Address"
+                />
+                <input
+                    name="password"
+                    value={password}
+                    onChange={this.onChange}
+                    type="password"
+                    placeholder="Password"
+                />
+                <button disabled={isInvalid} type="submit">
+                    Sign In
+                </button>
+                {error && <p>{error.message}</p>}
+            </form>
+        );
+    }
 }
+const SignInForm = compose(
+    withRouter,
+    withFirebase
+)(SignInFormBase);
+export default SignInPage;
+export { SignInForm };

@@ -1,4 +1,4 @@
-import { createElement } from "react";
+import React, { createElement } from "react";
 import ReactDOM from "react-dom";
 
 import App from "./components/App";
