@@ -13,6 +13,14 @@ import Signin from "./screens/SignIn";
 export default function App() {
     return (
         <Router>
+            <div>
+                <nav className="nav-wrapper pink lighten-5">
+                    <h4 className="brand-logo center pink-text text-darken-4">
+                        Chandler Care Center
+                    </h4>
+                </nav>
+            </div>
+            <Route path="/" />
             <Switch>
                 <Route exact path="/" component={HomePage} />
                 <Route path="/signin" component={Signin} />

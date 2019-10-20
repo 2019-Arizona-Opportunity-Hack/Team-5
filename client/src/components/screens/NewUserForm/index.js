@@ -370,7 +370,7 @@ export default class NewUserForm extends Component {
                         <div style={{ paddingTop: "10px" }}>
                             {this.state.familyMemberCount < 8 && (
                                 <button
-                                    className="btn waves-effect"
+                                    className="btn grey darken-1"
                                     type="button"
                                     style={{ marginRight: "10px" }}
                                     onClick={() =>
@@ -385,11 +385,7 @@ export default class NewUserForm extends Component {
                                     Add family member
                                 </button>
                             )}
-                            <button
-                                className="btn waves-effect waves-light"
-                                type="submit"
-                                name="action"
-                            >
+                            <button className="btn red lighten-1" type="submit" name="action">
                                 Submit
                             </button>
                         </div>
