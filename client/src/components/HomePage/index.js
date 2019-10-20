@@ -1,8 +1,8 @@
 import React from "react";
-// import firebase from "firebase";
-// import firebaseConfig from "../SignIn/firebase";
+import SignOut from "../SignOut";
+import { withAuthorization } from "../Session";
 
-export default function HomePage() {
+function HomePage() {
     // firebase.initializeApp(firebaseConfig);
     // let user = firebase.auth().currentUser;
     // console.log("THIS IS THE USER TOKEN:");
@@ -13,6 +13,9 @@ export default function HomePage() {
             <button>GET USER</button>
             <button>ADD USER</button>
             <button>GET DATA</button>
+            <SignOut />
         </div>
     );
 }
+const condition = authUser => Boolean(authUser);
+export default withAuthorization(condition)(HomePage);
