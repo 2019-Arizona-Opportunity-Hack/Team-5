@@ -7,6 +7,7 @@ import Row from "../../form/Row";
 import initMaterialize from "../../../utils/initMaterialize";
 import gql from "graphql-tag";
 import ApolloClient from "apollo-boost";
+import { withRouter } from "react-router-dom";
 
 const NEW_USER = gql`
     mutation newUser($user: UserInput!, $household: [UserInput]) {
@@ -18,7 +19,7 @@ const NEW_USER = gql`
 
 const client = new ApolloClient();
 
-export default class NewUserForm extends Component {
+class NewUserForm extends Component {
     state = {
         firstName: "",
         lastName: "",
@@ -58,7 +59,7 @@ export default class NewUserForm extends Component {
                 },
             })
             .then(response => {
-                console.log(response);
+                this.props.history.push("/userprofile");
             })
             .catch(err => {
                 console.log(err);
@@ -395,3 +396,5 @@ export default class NewUserForm extends Component {
         );
     }
 }
+
+export default withRouter(NewUserForm);
