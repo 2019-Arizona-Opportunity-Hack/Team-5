@@ -4,16 +4,16 @@ const wrapCallbackToPromise = require("../utils/wrapCallbackToPromise");
 const schema = new Schema({
     firstName: String,
     lastName: String,
-    dateOfBirth: {
-        type: Date,
-        default: Date.now,
-    },
+    dateOfBirth: Date,
     address: String,
     zipCode: Number,
     city: String,
     phoneNumber: String,
     emailAddress: String,
-    isHeadOfHousehold: Boolean,
+    isHeadOfHousehold: {
+        type: Boolean,
+        default: false,
+    },
     gender: String,
     houstingType: String,
     ethnicity: String,
@@ -48,9 +48,22 @@ const User = {
         userModel.createCollection();
     },
 
-    create(user) {
+    create(user, household = []) {
         const createUser = userModel.create.bind(userModel);
-        return wrapCallbackToPromise(createUser, user);
+        if (household.length > 0) {
+            return wrapCallbackToPromise(createUser, household).then(result => {
+                const householdIds = result.map(createdUser => Types.ObjectId(createdUser._id));
+                return wrapCallbackToPromise(createUser, {
+                    ...user,
+                    household: householdIds,
+                    isHeadOfHousehold: true,
+                });
+            });
+        }
+        return wrapCallbackToPromise(createUser, {
+            ...user,
+            isHeadOfHousehold: true,
+        });
     },
 
     find(id) {
@@ -62,10 +75,10 @@ const User = {
     },
 
     _addEventToUser(eventId, userId) {
-        const findByIdAndUpdate = userModel.findByIdAndUpdate.bind(userModel);
-        return wrapCallbackToPromise(findByIdAndUpdate, userId, {
-            // eslint-disable-next-line new-cap
-            $push: { eventsAttended: Types.ObjectId(eventId) },
+        return userModel.findByIdAndUpdate(userId, {
+            $push: {
+                eventsAttended: Types.ObjectId(eventId),
+            },
         });
     },
 };

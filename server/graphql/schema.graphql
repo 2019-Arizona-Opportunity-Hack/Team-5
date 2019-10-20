@@ -6,7 +6,7 @@ type Query {
 }
 
 type Mutation {
-    newUser(user: UserInput): Success
+    newUser(user: UserInput, household: [UserInput]): Success
     newEvent(event: EventInput): Success
     addUserToEvent(userId: ID!, eventId: ID!): Success
     # updateUser(id: ID, changes: User): Boolean
@@ -28,7 +28,6 @@ type User {
     city: String
     phoneNumber: String
     emailAddress: String
-    isHeadOfHousehold: Boolean
     gender: Gender
     housingType: Housing
     ethnicity: Ethnicity
