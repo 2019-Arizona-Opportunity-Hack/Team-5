@@ -1,3 +1,5 @@
+const User = require("../../../orm/User");
+
 module.exports = (parent, args, context, info) => {
-    return null;
+    return User.query(args.query);
 };

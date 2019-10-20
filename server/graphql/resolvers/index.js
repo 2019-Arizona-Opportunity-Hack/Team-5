@@ -1,3 +1,6 @@
+const { GraphQLScalarType } = require("graphql");
+const { Kind } = require("graphql/language");
+
 const findEvents = require("./queries/findEvents");
 const findUsers = require("./queries/findUsers");
 const user = require("./queries/user");
@@ -13,10 +16,10 @@ const updateUser = require("./mutations/updateUser");
 
 module.exports = {
     Query: {
-        // findEvents,
-        // findUsers,
         user,
         event,
+        findEvents,
+        findUsers,
     },
     Mutation: {
         newUser,
@@ -27,4 +30,20 @@ module.exports = {
         deleteUser,
         deleteEvent,
     },
+    Date: new GraphQLScalarType({
+        name: "Date",
+        description: "Date custom scalar type",
+        parseValue(value) {
+            return new Date(value);
+        },
+        serialize(value) {
+            return value.getTime();
+        },
+        parseLiteral(ast) {
+            if (ast.kind === Kind.INT) {
+                return new Date(ast.value);
+            }
+            return null;
+        },
+    }),
 };

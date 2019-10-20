@@ -1,5 +1,6 @@
 const { model, Schema, Types } = require("mongoose");
 const wrapCallbackToPromise = require("../utils/wrapCallbackToPromise");
+const mapQueryObjects = require("../utils/mapQueryObjects");
 const User = require("./User");
 
 const schema = new Schema({
@@ -36,8 +37,16 @@ const Event = {
             .exec();
     },
 
+    query(searchMap) {
+        return eventModel.find(mapQueryObjects(searchMap, schema));
+    },
+
     change(id, changes) {
-        return eventModel.findByIdAndUpdate(id, changes).exec();
+        return eventModel
+            .findByIdAndUpdate(id, changes, {
+                strict: false,
+            })
+            .exec();
     },
 
     delete(id) {

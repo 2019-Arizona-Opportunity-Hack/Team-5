@@ -1,5 +1,6 @@
 const { model, Schema, Types } = require("mongoose");
 const wrapCallbackToPromise = require("../utils/wrapCallbackToPromise");
+const mapQueryObjects = require("../utils/mapQueryObjects");
 
 const schema = new Schema({
     firstName: {
@@ -29,7 +30,7 @@ const schema = new Schema({
     employmentType: String,
     hasDentalInsurance: Boolean,
     hasPrimaryDoctor: Boolean,
-    monthIncome: Number,
+    monthlyIncome: Number,
     monthlyIncomeType: [String],
     medicalInsuranceType: String,
     childCareType: String,
@@ -80,8 +81,16 @@ const User = {
             .exec();
     },
 
+    query(searchMap) {
+        return userModel.find(mapQueryObjects(searchMap, schema));
+    },
+
     change(id, changes) {
-        return userModel.findByIdAndUpdate(id, changes).exec();
+        return userModel
+            .findByIdAndUpdate(id, changes, {
+                strict: false,
+            })
+            .exec();
     },
 
     delete(id) {
