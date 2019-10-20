@@ -386,7 +386,7 @@ class NewUserForm extends Component {
                                     Add family member
                                 </button>
                             )}
-                            <button className="btn red lighten-1" type="submit" name="action">
+                            <button className="btn pink darken-4" type="submit" name="action">
                                 Submit
                             </button>
                         </div>
