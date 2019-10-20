@@ -1,16 +1,26 @@
-const { model, Schema } = require("mongoose");
+const { model, Schema, Types } = require("mongoose");
 const wrapCallbackToPromise = require("../utils/wrapCallbackToPromise");
+const mapQueryObjects = require("../utils/mapQueryObjects");
 
 const schema = new Schema({
-    firstName: String,
-    lastName: String,
+    firstName: {
+        type: String,
+        required: true,
+    },
+    lastName: {
+        type: String,
+        required: true,
+    },
     dateOfBirth: Date,
     address: String,
     zipCode: Number,
     city: String,
     phoneNumber: String,
     emailAddress: String,
-    isHeadOfHousehold: Boolean,
+    isHeadOfHousehold: {
+        type: Boolean,
+        default: false,
+    },
     gender: String,
     houstingType: String,
     ethnicity: String,
@@ -20,12 +30,22 @@ const schema = new Schema({
     employmentType: String,
     hasDentalInsurance: Boolean,
     hasPrimaryDoctor: Boolean,
-    monthIncome: Number,
+    monthlyIncome: Number,
     monthlyIncomeType: [String],
     medicalInsuranceType: String,
     childCareType: String,
-    houseHold: [Schema.Types.ObjectId],
-    eventsAddtended: [Schema.Types.ObjectId],
+    household: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: "User",
+        },
+    ],
+    eventsAttended: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: "Event",
+        },
+    ],
 });
 
 const userModel = model("User", schema);
@@ -35,14 +55,54 @@ const User = {
         userModel.createCollection();
     },
 
-    create(user) {
+    create(user, household = []) {
         const createUser = userModel.create.bind(userModel);
-        return wrapCallbackToPromise(createUser, user);
+        if (household.length > 0) {
+            return wrapCallbackToPromise(createUser, household).then(result => {
+                const householdIds = result.map(createdUser => Types.ObjectId(createdUser._id));
+                return wrapCallbackToPromise(createUser, {
+                    ...user,
+                    household: householdIds,
+                    isHeadOfHousehold: true,
+                });
+            });
+        }
+        return wrapCallbackToPromise(createUser, {
+            ...user,
+            isHeadOfHousehold: true,
+        });
     },
 
     find(id) {
-        const findById = userModel.findById.bind(userModel);
-        return wrapCallbackToPromise(findById, id);
+        return userModel
+            .findById(id)
+            .populate("eventsAttended")
+            .populate("household")
+            .exec();
+    },
+
+    query(searchMap) {
+        return userModel.find(mapQueryObjects(searchMap, schema));
+    },
+
+    change(id, changes) {
+        return userModel
+            .findByIdAndUpdate(id, changes, {
+                strict: false,
+            })
+            .exec();
+    },
+
+    delete(id) {
+        return userModel.findByIdAndDelete(id).exec();
+    },
+
+    _addEventToUser(eventId, userId) {
+        return userModel.findByIdAndUpdate(userId, {
+            $push: {
+                eventsAttended: Types.ObjectId(eventId),
+            },
+        });
     },
 };
 

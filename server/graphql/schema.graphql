@@ -1,23 +1,24 @@
 type Query {
     user(id: ID!): User
-    # event(id: ID!): Event
-    # findUsers(user: User): [User]
-    # findEvents(event: Event): [Event]
+    event(id: ID!): Event
+    findUsers(query: UserQuery): [User]
+    findEvents(query: EventQuery): [Event]
 }
 
 type Mutation {
-    newUser(user: UserInput): Success
-    # updateUser(id: ID, changes: User): Boolean
-    # updateEvent(id: ID, changes: Event): Boolean
-    # deleteUser(userId: ID): Boolean
-    # deleteEvent(eventId: ID): Boolean
-    # addUserToEvent(userId: ID, eventId: ID): Boolean
+    newUser(user: UserInput!, household: [UserInput]): Success
+    newEvent(event: EventInput!): Success
+    addUserToEvent(userId: ID!, eventId: ID!): Success
+    updateUser(userId: ID!, changes: UserInput): Success
+    updateEvent(eventId: ID!, changes: EventInput!): Success
+    deleteUser(userId: ID!): Success
+    deleteEvent(eventId: ID): Success
 }
 
 scalar Date
 
 type User {
-    id: ID
+    id: ID!
     firstName: String
     lastName: String
     dateOfBirth: Date
@@ -27,19 +28,19 @@ type User {
     phoneNumber: String
     emailAddress: String
     isHeadOfHousehold: Boolean
-    gender: Gender
-    housingType: Housing
-    ethnicity: Ethnicity
-    selfIdentification: [Identification]
-    highestEducationCompleted: HighestEducation
-    primaryLanguage: [Language]
-    employmentType: Employment
+    gender: String
+    housingType: String
+    ethnicity: String
+    selfIdentification: [String]
+    highestEducationCompleted: String
+    primaryLanguage: [String]
+    employmentType: String
     hasDentalInsurance: Boolean
     hasPrimaryDoctor: Boolean
     monthlyIncome: Float
-    monthlyIncomeType: MonthlyIncome
-    medicalInsuranceType: MedicalInsurance
-    childCareType: ChildCare
+    monthlyIncomeType: String
+    medicalInsuranceType: String
+    childCareType: String
     household: [User]
     eventsAttended: [Event]
 }
@@ -53,130 +54,81 @@ input UserInput {
     city: String
     phoneNumber: String
     emailAddress: String
-    isHeadOfHousehold: Boolean
-    gender: Gender
-    housingType: Housing
-    ethnicity: Ethnicity
-    selfIdentification: [Identification]
-    highestEducationCompleted: HighestEducation
-    primaryLanguage: [Language]
-    employmentType: Employment
+    gender: String
+    housingType: String
+    ethnicity: String
+    selfIdentification: [String]
+    highestEducationCompleted: String
+    primaryLanguage: [String]
+    employmentType: String
     hasDentalInsurance: Boolean
     hasPrimaryDoctor: Boolean
     monthlyIncome: Float
-    monthlyIncomeType: MonthlyIncome
-    medicalInsuranceType: MedicalInsurance
-    childCareType: ChildCare
+    monthlyIncomeType: String
+    medicalInsuranceType: String
+    childCareType: String
+}
+
+input UserQuery {
+    firstName: StringQuery
+    lastName: StringQuery
+    dateOfBirth: DateQuery
+    address: StringQuery
+    zipCode: NumberQuery
+    city: StringQuery
+    phoneNumber: StringQuery
+    emailAddress: StringQuery
+    isHeadOfHousehold: BooleanQuery
+    gender: StringQuery
+    housingType: StringQuery
+    ethnicity: StringQuery
+    selfIdentification: StringQuery
+    highestEducationCompleted: StringQuery
+    primaryLanguage: StringQuery
+    employmentType: StringQuery
+    hasDentalInsurance: BooleanQuery
+    hasPrimaryDoctor: BooleanQuery
+    monthlyIncome: NumberQuery
+    monthlyIncomeType: StringQuery
+    medicalInsuranceType: StringQuery
+    childCareType: StringQuery
 }
 
 type Event {
-    id: ID
+    id: ID!
     name: String
     usersAttended: [User]
     datetime: Date
 }
 
 input EventInput {
-    name: String!
+    name: String
     datetime: Date
+}
+
+input EventQuery {
+    name: StringQuery
+    datetime: DateQuery
 }
 
 type Success {
     success: Boolean
 }
 
-enum Gender {
-    Male
-    Female
-    Other
+input StringQuery {
+    exactMatch: String
 }
 
-enum Housing {
-    Emergency
-    Evacuee
-    HomeOwner
-    Other
+input DateQuery {
+    isBefore: Date
+    isAfter: Date
 }
 
-enum Identification {
-    Disability
-    Veteran
-    MentalIllness
-    Pregnant
-    Postpartum
-    Breastfeeding
-    Undisclosed
-    Ederly
-    LGBTQ
-    Other
+input BooleanQuery {
+    value: Boolean
 }
 
-enum Ethnicity {
-    White
-    AfricanAmerican
-    HispanicLatino
-    AmericanIndianNativeAmerican
-    Asian
-    AlaskaNativeAleutEskimo
-    MiddleEasternNorthAfrican
-    PacificIslander
-    Undisclosed
-    Other
-}
-
-enum HighestEducation {
-    ElementaryMiddleSchool
-    HighSchool
-    HighSchoolGraduate
-    GenderPostSecondary
-    Tradeschool
-    AssociatesDegree
-    BachelorsDegree
-    PHD
-    Undisclosed
-}
-
-enum Language {
-    English
-    Spanish
-    Other
-}
-
-enum Employment {
-    PostSecondaryStudent
-    FullTime
-    PartTime
-    REtried
-    None
-    Undisclosed
-    Other
-}
-
-enum MonthlyIncome {
-    Amount
-    CommoditySupplementalFoodProgram
-    SupplementalAssistanceWIC
-    SupplementalNutritionAssistanceProgramSNAP
-    CashAssistantTANF
-    DESChildCareSubsidy
-    QualityFirstScholarship
-    Other
-}
-
-enum MedicalInsurance {
-    Employer
-    Private
-    AHCCCS
-    IndianHealthServices
-    Military
-    None
-    Other
-}
-
-enum ChildCare {
-    AtHome
-    HeadStart
-    ChildCareCenterPreschoolProgram
-    FamilyChildCareHome
-    RelativeNeighborOrBabysitter
+input NumberQuery {
+    greaterThen: Float
+    lessThen: Float
 }

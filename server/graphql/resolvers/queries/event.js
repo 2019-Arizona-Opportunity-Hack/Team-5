@@ -1,3 +1,8 @@
+const Event = require("../../../orm/Event");
+
 module.exports = (parent, args, context, info) => {
-    return null;
+    if (!args.id) {
+        return null;
+    }
+    return Event.find(args.id);
 };

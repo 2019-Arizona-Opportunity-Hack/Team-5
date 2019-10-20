@@ -4,6 +4,7 @@
         "es6": true,
         "browser": true
     },
+    "parser": "babel-eslint",
     "parserOptions": {
         "sourceType": "module",
         "ecmaFeatures": {
@@ -187,7 +188,7 @@
         "lines-around-comment": "off",
         "lines-between-class-members": "off",
         "multiline-ternary": "off",
-        "new-cap": "warn",
+        "new-cap": "off",
         "new-parens": "off",
         "newline-per-chained-call": "off",
         "no-array-constructor": "warn",
