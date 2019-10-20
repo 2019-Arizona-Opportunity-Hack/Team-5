@@ -1,10 +1,13 @@
-const { model, Schema } = require("mongoose");
+const { model, Schema, Types } = require("mongoose");
 const wrapCallbackToPromise = require("../utils/wrapCallbackToPromise");
 
 const schema = new Schema({
     firstName: String,
     lastName: String,
-    dateOfBirth: Date,
+    dateOfBirth: {
+        type: Date,
+        default: Date.now,
+    },
     address: String,
     zipCode: Number,
     city: String,
@@ -24,8 +27,18 @@ const schema = new Schema({
     monthlyIncomeType: [String],
     medicalInsuranceType: String,
     childCareType: String,
-    houseHold: [Schema.Types.ObjectId],
-    eventsAddtended: [Schema.Types.ObjectId],
+    household: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: "User",
+        },
+    ],
+    eventsAttended: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: "Event",
+        },
+    ],
 });
 
 const userModel = model("User", schema);
@@ -41,8 +54,19 @@ const User = {
     },
 
     find(id) {
-        const findById = userModel.findById.bind(userModel);
-        return wrapCallbackToPromise(findById, id);
+        return userModel
+            .findById(id)
+            .populate("eventsAttended")
+            .populate("household")
+            .exec();
+    },
+
+    _addEventToUser(eventId, userId) {
+        const findByIdAndUpdate = userModel.findByIdAndUpdate.bind(userModel);
+        return wrapCallbackToPromise(findByIdAndUpdate, userId, {
+            // eslint-disable-next-line new-cap
+            $push: { eventsAttended: Types.ObjectId(eventId) },
+        });
     },
 };
 

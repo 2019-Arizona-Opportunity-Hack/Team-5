@@ -4,6 +4,7 @@ const user = require("./queries/user");
 const event = require("./queries/event");
 
 const newUser = require("./mutations/newUser");
+const newEvent = require("./mutations/newEvent");
 const addUserToEvent = require("./mutations/addUserToEvent");
 const deleteEvent = require("./mutations/deleteEvent");
 const deleteUser = require("./mutations/deleteUser");
@@ -15,10 +16,12 @@ module.exports = {
         // findEvents,
         // findUsers,
         user,
-        // event,
+        event,
     },
     Mutation: {
         newUser,
+        newEvent,
+        addUserToEvent,
         // addUserToEvent,
         // deleteEvent,
         // deleteUser,
