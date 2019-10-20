@@ -1,10 +1,10 @@
-const User = require("../../../orm/User");
+const Event = require("../../../orm/Event");
 
 module.exports = (parent, args, context, info) => {
-    if (!args.userId) {
-        return { sucess: false };
+    if (!args.event) {
+        return { success: false };
     }
-    return User.change(args.userId, args.changes)
+    return Event.create(args.event)
         .then(() => {
             return { success: true };
         })

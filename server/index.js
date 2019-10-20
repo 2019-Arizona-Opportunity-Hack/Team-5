@@ -1,29 +1,26 @@
 const path = require("path");
-const PORT = process.env.PORT || 3001;
-
-// Initialize Express app
+const config = require("./config");
+const database = require("./database");
 const express = require("express");
-const app = express();
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
-if (process.env.NODE_ENV === "production") {
-    app.use(express.static("client/build"));
-}
-
 const { ApolloServer } = require("apollo-server-express");
-const graphqlSetup = require("./graphql");
-const apollo = new ApolloServer(graphqlSetup);
-apollo.applyMiddleware({ app });
+const graphqlConfig = require("./graphql");
 
-// Default React route
-if (process.env.NODE_ENV === "production") {
-    app.get("/*", (_, response) => {
-        response.sendFile(path.join(__dirname, "../client/build/index.html"));
-    });
+const expressServer = express();
+const apolloServer = new ApolloServer(graphqlConfig);
+
+expressServer.use(express.urlencoded({ extended: true }));
+expressServer.use(express.json());
+apolloServer.applyMiddleware({ app: expressServer });
+database.init();
+
+if (config.server.isProduction) {
+    const productionReactPath = path.join(__dirname, "../client/build/index.html");
+    expressServer.use(express.static("client/build"));
+    expressServer.get("/*", (_, response) => response.sendFile(productionReactPath));
+} else {
+    process.on("SIGINT", () => process.close());
 }
 
-app.listen(PORT, () => {
-    if (process.env.NODE_ENV === "development") {
-        console.log(`Server @ http://localhost:${PORT}/`);
-    }
+expressServer.listen(config.server.port, () => {
+    console.log(`Server @ http://localhost:${config.server.port}/`);
 });
