@@ -1,11 +1,11 @@
 import React from "react";
-import NewUserForm from "./newUserForm";
-// import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 // Page components
 import HomePage from "./HomePage/index";
 import QueryForm from "./QueryForm/index";
 import DataResults from "./DataResults/index";
+import NewUserForm from "./NewUserForm/index";
 import UserSearch from "./UserSearch/index";
 import UserProfile from "./UserProfile/index";
 import Signin from "./SignIn/index";
@@ -13,7 +13,6 @@ import Signin from "./SignIn/index";
 export default function App() {
     return (
         <Router>
-            <NewUserForm />
             <h1>Hello, world</h1>
             <Route path="/" />
             <Switch>
