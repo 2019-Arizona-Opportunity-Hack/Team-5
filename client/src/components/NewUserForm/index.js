@@ -1,10 +1,10 @@
 /* eslint-disable class-methods-use-this */
-import React, { Component } from "react";
-import M from "materialize-css/dist/js/materialize.min.js";
-import "materialize-css";
-import "materialize-css/dist/css/materialize.min.css";
+import React, { Component } from "./node_modules/react";
+import M from "./node_modules/materialize-css/dist/js/materialize.min.js.js";
+import "./node_modules/materialize-css";
+import "./node_modules/materialize-css/dist/css/materialize.min.css";
 
-export default class NewUserForm extends Component {
+export default class newUserForm extends Component {
     componentDidMount() {
         console.log(M);
         M.AutoInit();
