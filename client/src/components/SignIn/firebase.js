@@ -1,8 +1,6 @@
-const React = require("react");
-const firebase = require("firebase");
-const firebaseui = require("firebaseui");
+import * as firebase from "firebase";
 
-const firebaseConfig = {
+let config = {
     apiKey: "AIzaSyB5LyyY05yJI7NYVfjlVvdYIMd0rZ-HCrs",
     authDomain: "careconnect-eefc3.firebaseapp.com",
     databaseURL: "https://careconnect-eefc3.firebaseio.com",
@@ -12,6 +10,6 @@ const firebaseConfig = {
     appId: "1:363014939249:web:d307b3b6b44f7c93a171d0",
     measurementId: "G-8LN4MSC1JW",
 };
+firebase.initializeApp(config);
 
-firebase.initializeApp(firebaseConfig);
-firebase.analytics();
+export default firebase;
