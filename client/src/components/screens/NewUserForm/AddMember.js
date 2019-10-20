@@ -1,9 +1,6 @@
 /* eslint-disable class-methods-use-this */
 import React, { Component } from "react";
 import { FieldArray } from "formik";
-import M from "../../../node_modules/materialize-css/dist/js/materialize.min.js";
-import "../../../node_modules/materialize-css/dist/js/materialize";
-import "../../../node_modules/materialize-css/dist/css/materialize.min.css";
 
 export default class AddMember extends Component {
     // constructor(props) {
@@ -26,10 +23,6 @@ export default class AddMember extends Component {
     //         member: this.state.member.concat([{ name: " " }]),
     //     });
     // };
-    componentDidMount() {
-        console.log(M);
-        M.AutoInit();
-    }
 
     render() {
         return (
