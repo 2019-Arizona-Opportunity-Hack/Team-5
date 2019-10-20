@@ -1,12 +1,14 @@
 type Query {
     user(id: ID!): User
-    # event(id: ID!): Event
+    event(id: ID!): Event
     # findUsers(user: User): [User]
     # findEvents(event: Event): [Event]
 }
 
 type Mutation {
     newUser(user: UserInput): Success
+    newEvent(event: EventInput): Success
+    addUserToEvent(userId: ID!, eventId: ID!): Success
     # updateUser(id: ID, changes: User): Boolean
     # updateEvent(id: ID, changes: Event): Boolean
     # deleteUser(userId: ID): Boolean
