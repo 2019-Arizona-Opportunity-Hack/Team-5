@@ -33,7 +33,9 @@
         "graphql": "^14.4.1",
         "if-env": "^1.0.4",
         "jsonwebtoken": "^8.5.1",
-        "mongodb": "^3.3.3"
+        "materialize-css": "^1.0.0",
+        "mongodb": "^3.3.3",
+        "react-materialize": "^3.4.1"
     },
     "husky": {
         "hooks": {
