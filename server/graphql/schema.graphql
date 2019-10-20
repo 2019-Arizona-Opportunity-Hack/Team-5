@@ -6,20 +6,20 @@ type Query {
 }
 
 type Mutation {
-    newUser(user: UserInput): Success
-    newEvent(event: EventInput): Success
+    newUser(user: UserInput!, household: [UserInput]): Success
+    newEvent(event: EventInput!): Success
     addUserToEvent(userId: ID!, eventId: ID!): Success
-    # updateUser(id: ID, changes: User): Boolean
-    # updateEvent(id: ID, changes: Event): Boolean
-    # deleteUser(userId: ID): Boolean
-    # deleteEvent(eventId: ID): Boolean
-    # addUserToEvent(userId: ID, eventId: ID): Boolean
+    updateUser(userId: ID!, changes: UserInput): Success
+    updateEvent(eventId: ID!, changes: EventInput!): Success
+    deleteUser(userId: ID!): Success
+    deleteEvent(eventId: ID): Success
+    # addUserToEvent(userId: ID, eventId: ID): Success
 }
 
 scalar Date
 
 type User {
-    id: ID
+    id: ID!
     firstName: String
     lastName: String
     dateOfBirth: Date
@@ -55,7 +55,6 @@ input UserInput {
     city: String
     phoneNumber: String
     emailAddress: String
-    isHeadOfHousehold: Boolean
     gender: Gender
     housingType: Housing
     ethnicity: Ethnicity
@@ -72,7 +71,7 @@ input UserInput {
 }
 
 type Event {
-    id: ID
+    id: ID!
     name: String
     usersAttended: [User]
     datetime: Date

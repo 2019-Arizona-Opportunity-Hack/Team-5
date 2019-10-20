@@ -4,7 +4,7 @@ module.exports = (parent, args, context, info) => {
     if (!args.user) {
         return { success: false };
     }
-    return User.create(args.user)
+    return User.create(args.user, args.household)
         .then(() => {
             return { success: true };
         })

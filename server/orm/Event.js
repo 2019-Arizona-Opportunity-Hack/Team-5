@@ -36,12 +36,34 @@ const Event = {
             .exec();
     },
 
+    change(id, changes) {
+        return eventModel.findByIdAndUpdate(id, changes).exec();
+    },
+
+    delete(id) {
+        return eventModel.findByIdAndDelete(id).exec();
+    },
+
     addUserToEvent(eventId, userId) {
-        const findByIdAndUpdate = eventModel.findByIdAndUpdate.bind(eventModel);
-        return wrapCallbackToPromise(findByIdAndUpdate, eventId, {
-            // eslint-disable-next-line new-cap
-            $push: { usersAttended: Types.ObjectId(userId) },
-        }).then(() => User._addEventToUser(eventId, userId));
+        return eventModel
+            .find({
+                _id: Types.ObjectId(eventId),
+                usersAttended: {
+                    $in: Types.ObjectId(userId),
+                },
+            })
+            .exec()
+            .then(findResult => {
+                if (findResult.length > 0) {
+                    return Promise.resolve();
+                }
+                return eventModel
+                    .findByIdAndUpdate(eventId, {
+                        $push: { usersAttended: Types.ObjectId(userId) },
+                    })
+                    .exec()
+                    .then(() => User._addEventToUser(eventId, userId));
+            });
     },
 };
 
