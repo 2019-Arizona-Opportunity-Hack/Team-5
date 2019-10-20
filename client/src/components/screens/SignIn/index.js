@@ -1,14 +1,15 @@
+/* eslint-disable no-invalid-this */
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import { compose } from "recompose";
-import { withFirebase } from "../Firebase/context";
+import { withFirebase } from "../../Firebase/context";
 
-const SignInPage = () => 
+const SignInPage = () => (
     <div>
         <h1>SignIn</h1>
         <SignInForm />
     </div>
-;
+);
 const INITIAL_STATE = {
     email: "",
     password: "",
