@@ -2,19 +2,17 @@ import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 // Page components
-import HomePage from "./HomePage/index";
-import QueryForm from "./QueryForm/index";
-import DataResults from "./DataResults/index";
-import NewUserForm from "./NewUserForm/index";
-import UserSearch from "./UserSearch/index";
-import UserProfile from "./UserProfile/index";
-import Signin from "./SignIn/index";
+import HomePage from "./screens/HomePage";
+import QueryForm from "./screens/QueryForm";
+import DataResults from "./screens/DataResults";
+import NewUserForm from "./screens/NewUserForm";
+import UserSearch from "./screens/UserSearch";
+import UserProfile from "./screens/UserProfile";
+import Signin from "./screens/SignIn";
 
 export default function App() {
     return (
         <Router>
-            <h1>Hello, world</h1>
-            <Route path="/" />
             <Switch>
                 <Route exact path="/" component={HomePage} />
                 <Route path="/signin" component={Signin} />
