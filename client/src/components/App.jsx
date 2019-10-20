@@ -16,7 +16,8 @@ export default function App() {
             <h1>Hello, world</h1>
             <Route path="/" />
             <Switch>
-                <Route exact path="/" component={HomePage} />
+                <Route exact path="/" component={Signin} />
+                <Route path="/homepage" component={HomePage} />
                 <Route path="/signin" component={Signin} />
                 <Route path="/query" component={QueryForm} />
                 <Route path="/results" component={DataResults} />
