@@ -6,8 +6,8 @@ type Query {
 }
 
 type Mutation {
-    newUser(user: UserInput, household: [UserInput]): Success
-    newEvent(event: EventInput): Success
+    newUser(user: UserInput!, household: [UserInput]): Success
+    newEvent(event: EventInput!): Success
     addUserToEvent(userId: ID!, eventId: ID!): Success
     # updateUser(id: ID, changes: User): Boolean
     # updateEvent(id: ID, changes: Event): Boolean
@@ -19,34 +19,8 @@ type Mutation {
 scalar Date
 
 type User {
-    id: ID
-    firstName: String
-    lastName: String
-    dateOfBirth: Date
-    address: String
-    zipCode: Int
-    city: String
-    phoneNumber: String
-    emailAddress: String
-    gender: Gender
-    housingType: Housing
-    ethnicity: Ethnicity
-    selfIdentification: [Identification]
-    highestEducationCompleted: HighestEducation
-    primaryLanguage: [Language]
-    employmentType: Employment
-    hasDentalInsurance: Boolean
-    hasPrimaryDoctor: Boolean
-    monthlyIncome: Float
-    monthlyIncomeType: MonthlyIncome
-    medicalInsuranceType: MedicalInsurance
-    childCareType: ChildCare
-    household: [User]
-    eventsAttended: [Event]
-}
-
-input UserInput {
-    firstName: String
+    id: ID!
+    firstName: String!
     lastName: String
     dateOfBirth: Date
     address: String
@@ -68,10 +42,36 @@ input UserInput {
     monthlyIncomeType: MonthlyIncome
     medicalInsuranceType: MedicalInsurance
     childCareType: ChildCare
+    household: [User]
+    eventsAttended: [Event]
+}
+
+input UserInput {
+    firstName: String!
+    lastName: String!
+    dateOfBirth: Date
+    address: String
+    zipCode: Int
+    city: String
+    phoneNumber: String
+    emailAddress: String
+    gender: Gender
+    housingType: Housing
+    ethnicity: Ethnicity
+    selfIdentification: [Identification]
+    highestEducationCompleted: HighestEducation
+    primaryLanguage: [Language]
+    employmentType: Employment
+    hasDentalInsurance: Boolean
+    hasPrimaryDoctor: Boolean
+    monthlyIncome: Float
+    monthlyIncomeType: MonthlyIncome
+    medicalInsuranceType: MedicalInsurance
+    childCareType: ChildCare
 }
 
 type Event {
-    id: ID
+    id: ID!
     name: String
     usersAttended: [User]
     datetime: Date
