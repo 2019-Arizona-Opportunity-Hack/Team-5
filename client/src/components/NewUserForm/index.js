@@ -316,7 +316,11 @@ export default class newUserForm extends Component {
                                 <h5>All information is confidential.</h5>
                             )}
                         </div>
-                        <button class="btn waves-effect waves-light" type="submit" name="action">
+                        <button
+                            class="btn waves-effect waves-light pink darken-4"
+                            type="submit"
+                            name="action"
+                        >
                             Submit
                         </button>
                     </form>
