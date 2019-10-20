@@ -18,17 +18,49 @@ function HomePage(props) {
     return (
         <div>
             <div className="row">
-                <div className="col s12">
-                    <h1>I am a Home Page!</h1>
-                    <button id="existingUser" onClick={() => handleClick("/existinguser")}>
-                        Check-In
-                    </button>
-                    <button id="newUser" onClick={() => handleClick("/newuser")}>
-                        New User
-                    </button>
-                    <button id="dataResults" onClick={() => handleClick("/results")}>
-                        Run a Report
-                    </button>
+                <div className="row">
+                    <div className="col s12">
+                        <div className="card blue lighten-5">
+                            <div className="card-content black-text center">
+                                <h1>Welcome</h1>
+                                <br />
+                                <div className="row">
+                                    <div className="col s3"></div>
+                                    <button
+                                        id="existingUser"
+                                        className="waves-effect waves btn-large blue-grey darken-2 col s6"
+                                        onClick={() => handleClick("/existinguser")}
+                                    >
+                                        Check-In
+                                    </button>
+                                    <div className="col s3"></div>
+                                </div>
+                                <div className="row">
+                                    <div className="col s3"></div>
+                                    <button
+                                        id="newUser"
+                                        className="waves-effect waves btn-large blue-grey darken-2 col s6"
+                                        onClick={() => handleClick("/newuser")}
+                                    >
+                                        New User
+                                    </button>
+                                    <div className="col s3"></div>
+                                </div>
+                                <div className="row">
+                                    <div className="col s3"></div>
+                                    <button
+                                        id="dataResults"
+                                        className="waves-effect waves btn-large blue-grey darken-2 col s6"
+                                        onClick={() => handleClick("/results")}
+                                    >
+                                        Run a Report
+                                    </button>
+                                    <div className="col s3"></div>
+                                </div>
+                                <br />
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
