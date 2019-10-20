@@ -20,15 +20,15 @@ function HomePage(props) {
             <div className="row">
                 <div className="row">
                     <div className="col s12">
-                        <div className="card blue lighten-5">
-                            <div className="card-content black-text center">
+                        <div className="card white">
+                            <div className="card-content pink-text text-darken-4 center">
                                 <h1>Welcome</h1>
                                 <br />
                                 <div className="row">
                                     <div className="col s3"></div>
                                     <button
                                         id="existingUser"
-                                        className="waves-effect waves btn-large blue-grey darken-2 col s6"
+                                        className="waves-effect waves btn-large pink darken-4 col s6"
                                         onClick={() => handleClick("/existinguser")}
                                     >
                                         Check-In
@@ -39,7 +39,7 @@ function HomePage(props) {
                                     <div className="col s3"></div>
                                     <button
                                         id="newUser"
-                                        className="waves-effect waves btn-large blue-grey darken-2 col s6"
+                                        className="waves-effect waves btn-large pink darken-4 col s6"
                                         onClick={() => handleClick("/newuser")}
                                     >
                                         New User
@@ -50,7 +50,7 @@ function HomePage(props) {
                                     <div className="col s3"></div>
                                     <button
                                         id="dataResults"
-                                        className="waves-effect waves btn-large blue-grey darken-2 col s6"
+                                        className="waves-effect waves btn-large pink darken-4 col s6"
                                         onClick={() => handleClick("/results")}
                                     >
                                         Run a Report

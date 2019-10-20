@@ -13,7 +13,15 @@ import Signin from "./SignIn/index";
 export default function App() {
     return (
         <Router>
-            <h1>Hello, world</h1>
+            <div>
+                <nav>
+                    <div className="nav-wrapper pink lighten-5">
+                        <h4 className="brand-logo center pink-text text-darken-4">
+                            Chandler Care Center
+                        </h4>
+                    </div>
+                </nav>
+            </div>
             <Route path="/" />
             <Switch>
                 <Route exact path="/" component={HomePage} />
