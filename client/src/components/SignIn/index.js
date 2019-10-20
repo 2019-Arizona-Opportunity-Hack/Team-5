@@ -1,17 +1,31 @@
-const React = require("react");
-const firebase = require("firebase");
-const firebaseui = require("firebaseui");
+// import { renderPlaygroundPage } from "@apollographql/graphql-playground-html/dist/render-playground-page";
+import React from "react";
+import firebaseConfig from "./firebase.js";
+import firebase from "firebase";
+import "firebaseui/dist/firebaseui.css";
+import * as firebaseui from "firebaseui";
+// import firebaseui from "firebaseui";
 
-const firebaseConfig = {
-    apiKey: "AIzaSyB5LyyY05yJI7NYVfjlVvdYIMd0rZ-HCrs",
-    authDomain: "careconnect-eefc3.firebaseapp.com",
-    databaseURL: "https://careconnect-eefc3.firebaseio.com",
-    projectId: "careconnect-eefc3",
-    storageBucket: "careconnect-eefc3.appspot.com",
-    messagingSenderId: "363014939249",
-    appId: "1:363014939249:web:d307b3b6b44f7c93a171d0",
-    measurementId: "G-8LN4MSC1JW",
-};
+export default function Signin() {
+    firebase.initializeApp(firebaseConfig);
+    let ui = new firebaseui.auth.AuthUI(firebase.auth());
+    let uiConfig = {
+        signInSuccessUrl: "<url-to-redirect-to-on-success>",
+        signInOptions: [
+            firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+            firebase.auth.EmailAuthProvider.PROVIDER_ID,
+        ],
+        // tosUrl and privacyPolicyUrl accept either url string or a callback
+        // function.
+        // Terms of service url/callback.
+        tosUrl: "<your-tos-url>",
+        // Privacy policy url/callback.
+        privacyPolicyUrl: function() {
+            window.location.assign("<your-privacy-policy-url>");
+        },
+    };
+    ui.start("#firebaseui-auth-container", uiConfig);
+    console.log("fire started");
 
-firebase.initializeApp(firebaseConfig);
-firebase.analytics();
+    return <div id="firebaseui-auth-container"></div>;
+}
