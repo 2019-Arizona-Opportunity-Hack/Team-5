@@ -1,14 +1,13 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-// import "./App.css";
 
 // Page components
 import HomePage from "./HomePage/index";
 import QueryForm from "./QueryForm/index";
 import DataResults from "./DataResults/index";
+import NewUserForm from "./NewUserForm/index";
 import UserSearch from "./UserSearch/index";
 import UserProfile from "./UserProfile/index";
-import NewUserForm from "./NewUserForm/index";
 import Signin from "./SignIn/index";
 
 export default function App() {
